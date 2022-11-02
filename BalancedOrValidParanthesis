@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        //MAIN IDEA IS TO PUSH ALL ELEMENTS OF  A STRING INTO A STACK AND IF ) THIS COMES POP OUT THE ( BRACES AND SIMILARLY IF } AND ] COMES POP OUT HTE { AND [ BRACES ONLY FILL THE STACK WITH THE OPENING BRACES OF ALL TYPE AND AFTER POPPING IF THE STACK IS EMPTY THEN RETURN TRUE AS ALL GETS CANCELLED OUT OTHERWISE RETURN FALSE...//not sure tho for the plus part+ THE OPENING AND CLOSING BRACES SHD BE ADJACENT WITH OPENONG COMING FIRST AND THEN THE CLOSING ONE...
+        stack<char> st;
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='(' || s[i]=='{' || s[i]=='['){
+                st.push(s[i]);
+            }
+            else{
+                if(st.empty()) return false;
+                else{
+                    char c=st.top();
+                    if((s[i]==')' && c=='(') || (s[i]=='}' && c=='{') || (s[i]==']' && c=='[')){
+                        st.pop();// POPPING THE LAST TOPE ELEMENT
+                    }
+                    else{
+                        return false;
+                    }
+                }
+            }
+        }
+        if(st.empty()) return true;
+        else {
+            return false;
+        }
+        
+    }
+};//TC IS O(N) AS ONLY ITERATING AND SC IS 0(N) AS ONLY STACK IS USED..
