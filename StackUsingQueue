@@ -1,0 +1,40 @@
+class MyStack {
+public:
+    //INITIALISE THE DATA STRUCTRURE HERE
+    queue<int> q;//QUEUE IMPLEMETED
+    MyStack() {
+        
+    }
+    //PUSH ELEMENT ONTO THE STACK
+    void push(int x) {
+        if(q.empty()) q.push(x);//IF EMPTY THEN DIRECT PUSH
+        else{
+            int s=q.size();//SIZE OF QUEUE
+            q.push(x);//PUSHING OF ELEEMNT
+            while(s--){//WHILE S--
+                int top=q.front();//TOP ELEEMTN QUEUE KA
+                q.pop();//REMOVE THAT ELEMENT AS FIRST IN FIRST OUT FOLLOWED
+                q.push(top);//PUSH IN QUEUE AS FOR CHANGING INTO LAST IN FIRST OUT TYPE STACK
+            }//LAST IN FIRST OUT KRWA RHE H OKKK PICHE SE NIKAL WA RHE H AND WAPIS USKO ADD KR RHE H
+        }
+        
+    }
+    //REMOVES THE ELEMENT ON THE TOP OF THE STACK AND RETURNS THE ELEMT
+    int pop() {
+        int top=q.front();//TOPMOST ELEMTN IS THE FRONT ELEMET OF QUEUE
+        q.pop();//POP
+        return top;//RETURN THE TOPMOST ELEMENT
+        
+    }
+    //GETS THE TOP ELEMENT
+    int top() {
+        return q.front();//TOPMOST ELEMETN DIREFT
+        
+    }
+    //CHECKS WHETER THE STACK IS EMPTY OR NOT
+    bool empty() {
+        if(q.empty()) return true;
+        else return false; 
+        
+    }
+};
