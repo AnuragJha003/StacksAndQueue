@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        int n=nums.size();
+        stack<int> st;
+        for(int i=n-1;i>=0;i--){
+            st.push(nums[i]);
+        }//STCK CREATION BY PUSHING ELEMENTS FROM THE END SIDE OF VECTOR NUMS
+        vector<int> ans(nums.size());
+        for(int i=n-1;i>=0;i--){
+            while(!st.empty() && st.top() <= nums[i]){
+                st.pop();//MEANS CONCERNED NUMBER SE CHOTA H THEN HHH
+            }//THIS PROCESS IS REMOVING OUT ALL THE ELEMENTS LESS THAN OR EQUAL TO THE NUMS[I] OF VECTOR BY COMPARING IT WHILE IT IS STORED IN A STACK
+            if(st.empty() == true){
+                ans[i]=-1;
+            }//IF THE ENTIRE STACK BCMS EMPTY WHILE FINDIUNG A GREATER ELEEMNT MEANS NO GREATER ELEEMTN IS PRESENT SO -1
+            else{
+                ans[i]=st.top();
+            }//OTHERWISE THE TOPMOST EKEENTS IS THE NEAREST GREATER ELEEMTN
+            st.push(nums[i]);//TO ADD THE ALREADY PROCESSED ELEMENT INTO THE STACK SO AS TO ENSUTRE THAT IT IS USED FOR COMPARISON FOR COMING ELEMENTS AS THE ARRAY IS CIRUCLAR///
+        }
+        return ans;
+        
+    }
+};
