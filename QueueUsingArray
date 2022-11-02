@@ -1,0 +1,22 @@
+void MyQueue :: push(int x)
+{
+        // Your Code
+        //if(front==rear){
+        //    arr[front]=x;
+        //}
+        //if(rear==10000005){
+        //    COUT<<full<<endl;
+        //}
+        arr[rear]=x;
+        rear++;
+}
+
+//Function to pop an element from queue and return that element.
+int MyQueue :: pop()
+{
+        // Your Code
+        if(front>=rear){
+            return -1;
+        }//THERE IS NOTHING TO POP FROM THE ARRAY ITS EMPTY OR NO USE THERE TO POP HDFS=
+        return arr[front++];// /*FRONT++ */
+}
