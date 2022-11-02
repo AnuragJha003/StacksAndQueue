@@ -1,0 +1,29 @@
+public:
+     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        int n1 = nums1.size(), n2 = nums2.size();
+        unordered_map<int,int>m;//UNORDERED MAP CREATED TO STORE THE NEXT GREATER ELEEMT OF NUMS2 AS KEY VALUE IN IT
+        stack<int>st;
+        for(int i=n2-1;i>=0;i--)
+        {
+           while(!st.empty() && nums2[st.top()]<nums2[i])
+           {
+              st.pop();
+           }
+           if(st.empty()) {
+               m[nums2[i]] = -1;//STORE THAT NUMBER AT THE INDEX AND ITS NEXT GREATER ELMNT AS -1
+               st.push(i);//KOI LARGER ELEEMTN H HI NHI STACK M SO PUSH IT IN STACK
+           }//4 2 
+           else if(nums2[st.top()]>nums2[i]) 
+           {
+             m[nums2[i]] = nums2[st.top()];//NEXT GREATER ELEMENT IS THE TOPMOST ELMNT OF THE STACK
+              st.push(i);//3 4 2 
+           }
+        }
+         vector<int>ans;
+       for(int i=0;i<n1;i++)
+      {
+           ans.push_back(m[nums1[i]]);                           
+      }//PUSHING BACK ELEMENTS IN THE MAP CORRESPONDING TO ITS VALUES FROM THE MAP INDEXING
+     return ans;
+    }
+};
