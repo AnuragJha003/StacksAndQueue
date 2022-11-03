@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n=height.size();//SIZE OF HEIGHT VECTOR GIVEN 
+        vector<int> left(n,0),right(n,0);//MAX ELMNT TO THE LEFT OF A GIVEN ELMNT  AND RIGHT MEIN BHI 
+        left[0]=height[0];//LEFT SE MAX PEHLE FIRST ELMNT KO HI COMSIDER KR RHE H 
+        for(int i=1;i<n;i++){//NOT USING STACK APPROACH AS WE NEED THE GREATEST FROM LEFT AND RIGHT NOT NEARESET OR FARTHEST
+            left[i]=max(left[i-1],height[i]);//MAX OF ALL ELEMNTS STORED WITH EACH ELMNTS 
+        }//MAX IS COMPARED FOR LEFT FROM STARTING OF THE ARRAY 
+        right[n-1]=height[n-1];//RIGHT WALE M BACK SE TRAVERSLA AND RIGHT KA LAST INDEX IS HEIGHT ARRAY KA LAST INDEX 
+        for(int i=n-2;i>=0;i--){
+            right[i]=max(right[i+1],height[i]);
+        }//RIGHT M MAX PICHE SE CHECK KR RHE H HUM ISSLIYE PICHE SE INITILISED H YAHAN PAR 
+        int cnt=0;//COUNT==0 
+        for(int i=0;i<n;i++){
+            cnt+=min(left[i],right[i])-height[i];//SUM OF MIN OF LEFT GREATEST AND RIGHT GREATEST -HEIGHT[I] OF THE CURRENT BUILIDNG WHICH WILL GIVE THE WATER ACCUMULATED AT THE PRESENT BUILDING 
+        }//WATER[I] ARRAY KA SUM 
+        return cnt;
+    }
+};  
