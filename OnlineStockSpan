@@ -1,0 +1,23 @@
+class StockSpanner {
+private:
+    //FIRST PREVIOUS GREATER ELEMENT IS RETURNED IN HERE 
+    stack< pair<int,int> > s;//STACK FORMED AS A PAIR WITH FIRST POINTING TO THE PRICE AND SECOND POINTING TO THE INDEX LOCATION
+    int currentIndex;
+public:
+    StockSpanner() {
+        currentIndex = 0;
+    }//CURRENTINDEX INITILASED 0 GLOBAL INITILAISTION AT THIS SPOT
+    
+    int next(int price) {
+        
+        while(!s.empty() && s.top().first <= price){s.pop();}//REMOVE THE SMALLER ELEMENT PAIR AFTER COMPARING PRICE IF SMALLER THEN DELETE
+        
+        int width = s.empty() ? currentIndex+1 : currentIndex - s.top().second;//FOR 70 CI IS 3 AND TOP.SECOND IS 1==2
+        //WIDTH IS THE ANSWER TO BE RETURNED IF EMPTY THEN CI+1 ELSE THE DIFFERENCE IS RETURN WHICH IS CURRENT-S.TOP() MEANS THE DISTANCE BETWEEN THE CURRENT ELEMENT AND THE FIRST PREVIOUS GREATER ELEMENT
+        s.push({price,currentIndex});//PUSH IT IN THE STACK //100 - 0,80-1,70-3
+        ++currentIndex;//INCREMENT IN CI FOR NEXT ITEM
+        return width;//HAR EK ELEMENT KA INDIVUAL RETURN KR RHA H 
+    }
+};
+
+https://leetcode.com/problems/online-stock-span/
