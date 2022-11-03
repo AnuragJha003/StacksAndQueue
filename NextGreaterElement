@@ -27,3 +27,5 @@ public:
      return ans;
     }
 };
+
+https://leetcode.com/problems/next-greater-element-i/
