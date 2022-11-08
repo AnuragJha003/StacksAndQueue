@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        int n = nums.size(), i=0, j=0;
+        vector<int> ans;
+        list<int> l;
+        
+        while(j<n){
+            
+            if(j-i+1 < k){
+                if(l.size() == 0) l.push_back(j);
+                else{
+                    while(l.size() > 0 && nums[l.back()] < nums[j]) l.pop_back();
+                    l.push_back(j);
+                }
+            }
+            else {
+                 while(l.size() > 0 && nums[l.back()] < nums[j]) l.pop_back();
+                    l.push_back(j);
+                while(j-i+1 > k) {
+                    if(l.size() > 0 && l.front() == i) l.pop_front();
+                    i++;
+                }
+                if (j-i+1 == k) {
+                    ans.push_back(nums[l.front()]);
+                }
+            }
+            j++;
+        }
+        return  ans;
+        
+        
+        
+    }
+};
+
+
+https://leetcode.com/problems/sliding-window-maximum/
