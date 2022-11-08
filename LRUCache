@@ -1,0 +1,100 @@
+class LRUCache {
+public:
+    map<int,int> mp;
+    list<int> l;
+    map<int,list<int> :: iterator> address;// MAP WITH KEY AS INT AND POINTER TO DOUBLE LIST AS VALUES 
+    //MAP ADDRESS IS STORING THE KEY AS INT AND VALUE AS DOUBLY LINKED LIST ITERATOR
+    int cap;int siz;//CAP IS MAX WE CAN STORE AND SIZ IS NO OF ELMNTS TILL NOW WE HV IN THE CACHE 
+    LRUCache(int capacity) {
+        cap=capacity;
+        siz=0;
+        
+    }//CAPACITY AND SIZE INITIALISED 
+    //CONSIDERED INFINITE CAPACITY
+    int get(int key) {
+        if(mp.find(key)==mp.end()) return -1;//IF NOT IN KEY THEN KYA HI GET 
+        list<int> :: iterator it=address[key];//WILL GET THE ITERATOR OF THE LINKED LIST AT WHICH THIS KEY IS PRESENT 
+        l.erase(it);//FIRTS ERASE THIS FROM THE MEMORY OR DOUBLY LINKED LIST 
+        address.erase(key);//ERASE THE ITERATORS LOCATION FROM ADDRESS MAP TOO
+        l.push_front(key);//NOW JISKO REMOVE KIYA H USKO DOUBLY LL YA MEMORY KE FRONT M RKH DIYA SO PUSH FRONT IN THE LL
+        address[key]=l.begin();//STORING ITS NEW ITERATOR LOCATION IN THE ADDRESS MAP
+        return mp[key];//RETURN THE VALUE OF KEY AT MP 
+        
+    }
+    
+    void put(int key, int value) {
+        if(mp.find(key)!=mp.end()){//IF ALREADY EXIST THEN 
+            l.erase(address[key]);//DELETE FROM LIST AND FROM WHERE ADDRESS[KEY] WHICH WILL GIVE THE ITERATOR JAHAN SE ERASE KRNA H 
+            address.erase(key);//ADDRESS SE ERASE
+            mp.erase(key);//MAP SE ERASE
+            siz--;//SIZE KO DECREASE 
+        }
+        if(siz==cap){//FULLY FILLED
+            int k=l.back();//LEAST RECENTLY USED IS REMOVED 
+            l.pop_back();address.erase(k);mp.erase(k);siz--;//MAP OF ADDRESS AND MP SE ERASE KRDOGE AND SIZE-- AND LIST KE BACK SE BHI HATA DIYA 
+            //l.push_front(k);
+        }
+        siz++;//ADD KR RHE SO ++
+        l.push_front(key);//MOST RECENTLY USED SO FRONT M DAL RHE 
+        address[key]=l.begin();//ADDRESS STORE KR RHE H USKA IN THE MAP OF ADDRESS (INT ND LIST OF INT)
+        mp[key]=value;//PUT KRDIYE AB MAP M 
+        //IN THE LIST THE MOST RECENTLY USED ONES ARE AT THE FRONT AND LEAST USED ONES ARE AT THE END AND WHEN LEAST ONES R USED THEY R REMOVED AND PLACED AT THE FRONT 
+    }
+}; 
+/*class LRUCache {
+public:
+    unordered_map<int,int> mp;
+    list<int> l;
+    unordered_map<int,list<int> :: iterator> address;// MAP WITH KEY AS INT AND POINTER TO DOUBLE LIST AS VALUES 
+    int cap;int siz;//CAP IS MAX WE CAN STORE AND SIZ IS NO OF ELMNTS TILL NOW WE HV IN THE CACHE 
+    LRUCache(int capacity) {
+        cap=capacity;
+        siz=0;
+        
+    }
+    //CONSIDERED INFINITE CAPACITY
+    int get(int key) {
+        if(mp.find(key)==mp.end()) return -1;
+        list<int> :: iterator it=address[key];//DOUBLY LINKED LIST AT THAT INDEX OF THE MAP 
+        l.erase(it);
+        address.erase(key);
+        l.push_front(key);
+        address[key]=l.begin();
+        return mp[key];
+        
+    }
+    
+    void put(int key, int value) {
+        if(mp.find(key)!=mp.end()){
+            l.erase(address[key]);
+            address.erase(key);
+            mp.erase(key);
+            siz--;
+        }
+        if(siz==cap){
+            int k=l.back();l.pop_back();address.erase(k);mp.erase(k);siz--;
+            //l.push_front(k);
+        }
+        siz++;
+        l.push_front(key);
+        address[key]=l.begin();
+        mp[key]=value;
+        
+    }
+};*/
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
+ 
+ https://leetcode.com/problems/lru-cache/
