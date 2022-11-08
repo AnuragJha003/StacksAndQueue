@@ -1,0 +1,171 @@
+//{ Driver Code Starts
+//Initial template for C++
+
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+//User function template for C++
+
+class Solution 
+{
+    public:
+    //Function to find if there is a celebrity in the party or not.
+    /*int celebrity(vector<vector<int> >& M, int n) 
+    {
+        // code here 
+        int c=0;
+        stack<pair<int,int>> p;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(M[i][j]==1){
+                    p.push({i,j});
+                }
+            }
+        }
+        //2,1 and 1,1 
+        vector<int> l;
+        while(p.empty()==false){
+            int m=p.top().second;
+            p.pop();
+            l.push_back(m);
+        }
+        int co=0;
+        set<int> s;
+        for(auto x:l){
+            s.insert(x);
+        }
+        if(s.size()==1){
+            return l[0];
+        }
+        return -1;
+    }
+};
+*/
+int celebrity(vector<vector<int> >& M, int n) 
+    { //O(N)
+        stack<int> s;
+        for(int i=0;i<n;i++){
+            s.push(i);
+        }//0 1 2 
+        while(s.size()>1){
+            int A=s.top();//2
+            s.pop();
+            int B=s.top();//0
+            s.pop();
+            if(M[A][B]==1)// PERSON AT INDEX A KNOWS PERSON AT INDX B THEN 
+                s.push(B);//0 2 // A CANT BE CELEBTRIYTY
+            else
+                s.push(A);//2//SAME WITH B 
+        }//WE WOULD HV SHORTLISTED TO ONE POSSIBLE CELENBRITY 
+        int candidate =s.top();//2//THE POSSIBLE CELEBRITY FINA CHECK 
+        //now we will check row and col 
+        int zeros=0;
+        int ones=0;
+        for(int i=0;i<n;i++){
+            if(M[candidate][i]==0)//COUNT OF 0S IN THE ROW 
+                zeros++;//2
+            if(M[i][candidate]==1)//COUNT OF 1S IN THE COLUMN 
+                ones++;//1
+        }
+        if(zeros!=n || ones!=n-1)//IF ALL ZERO IN THE ROW AND N-1 ONES IN THE COLUMN THHE YES
+            return -1;//IF ! H ISSLIYE -1 
+            
+        return candidate;//NHI TOH HES THE CELEBRITY 
+    }
+};
+
+
+
+/*class Solution O(N2)
+
+{
+
+    public:
+
+    //Function to find if there is a celebrity in the party or not.
+
+    int celebrity(vector<vector<int> >& M, int n) 
+
+    {
+
+        // code here 
+
+        int in[n]={0};
+
+        int out[n]={0};
+
+        
+
+        for(int i=0;i<n;i++)
+
+        {
+
+            for(int j=0;j<n;j++)
+
+            {
+
+                if(M[i][j]==1)
+
+                {
+
+                    in[j]++;
+
+                    out[i]++;
+
+                }
+
+            }
+
+        }
+
+        
+
+        for(int i=0;i<n;i++)
+
+        {
+
+            if(in[i]==n-1 && out[i]==0)
+
+            {
+
+                return i;
+
+            }
+
+        }
+
+        return -1;
+
+    }
+
+}; */
+
+//{ Driver Code Starts.
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        vector<vector<int> > M( n , vector<int> (n, 0));
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                cin>>M[i][j];
+            }
+        }
+        Solution ob;
+        cout<<ob.celebrity(M,n)<<endl;
+
+    }
+}
+
+// } Driver Code Ends
+
+
+https://practice.geeksforgeeks.org/problems/the-celebrity-problem/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=the-celebrity-problem
