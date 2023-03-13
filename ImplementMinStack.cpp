@@ -43,3 +43,25 @@ public:
         return min[minptr];//MIN ELMNT OF THE STACK STORED IN THE TOP OF THIS SECONDARY STACK 
     }
 };
+ADITYA VERMA APPROACH:
+stack<int>s,ss;
+int getmin(){
+    if(ss.size()==0)return -1;
+    return ss.top();
+}
+void push(int a){
+    s.push(a);
+    if(ss.size()==0 || ss.top()>=a){
+        ss.push(a);
+    }
+    return;
+}
+int pop(){
+    if(s.size()==0)return -1;
+    int ans=s.top();
+    s.pop();
+    if(ss.top()==ans){
+        ss.pop();
+    }
+    return ans;
+}
