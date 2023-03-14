@@ -20,6 +20,7 @@ public:
         return sum;
     }
 };
+//since nested for loop is in a dependent for loop 
 /*
 class Solution {
 public:
